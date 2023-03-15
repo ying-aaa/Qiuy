@@ -9,5 +9,7 @@ module.exports = {
     qq: {
         user: "775296271@qq.com",
         pass: "zhongfncbincbahj"
-    }
+    },
+    // 部署的可以使用的环境变量
+    envs: ["computer", "android"]
 }

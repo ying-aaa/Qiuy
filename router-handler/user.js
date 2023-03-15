@@ -10,7 +10,7 @@ const config = require("../config/config");
 exports.regUser = (req, res) => {
     console.log("有用户注册了");
     let { username, password, email } = req.body;
-    console.log(req.body);
+    // console.log(req.body);
     // 查询用户名是否被注册
     userModel.find({ username }, (err, docs) => {
         if (err) return res.cc(err);

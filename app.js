@@ -1,37 +1,29 @@
 const express = require("express");
 const app = express();
-const path = require("path");
-// 配置 socket.io 连接
-const http = require('http');
 const fs = require("fs");
 
 
 // 网页socket配置
-// const server = http.createServer(app);
-
-
-const server = app.listen(3007);
+const server = app.listen(8082);
+// 连接webSocket
 const socket = require("./socket/index.js");
+socket.register(server);
+
 // 打开 @ 别名
 require('module-alias/register');
-// console.log(server);
-socket.register(server);
-socket.feed().on("connection", (socket) => {
-    console.log("连接成功!123");
-    socket.on("message", (msg) => {
-        console.log(msg);
-    })
-})
+
 // 打开聊天
 require("./socket/friend.js");
 require("./socket/chat.js");
 require("./socket/group.js");
+// 环境变量配置
+require("./env.variable.js");
+const { QIUY_URL } = process.env;
+console.log(QIUY_URL);
 
 // 引入 cors 中间件, 配置跨域
 const cors = require("cors");
-app.use(cors({
-
-}))
+app.use(cors({}))
 
 // 通过 express.json() 这个中间件, 解析表单中的 JSON 格式的数据
 app.use(express.json());
@@ -46,12 +38,6 @@ app.use(express.urlencoded({ extended: false }));
 // 静态资源共享
 // app.use(express.static(path.join(__dirname, "upload")));
 
-
-// 导入 userModel 进行数据操作
-// const mongoose = require("./model/users");
-// const usersModel = require("./model/users");
-
-
 // **一定要在路由之前**，使用全局中间件设置一个响应客户端数据的中间件函数供下游使用
 app.use((req, res, next) => {
     // 设置 status 默认值为 1，表示失败的情况
@@ -63,7 +49,9 @@ app.use((req, res, next) => {
     }
     next();
 });
-// 一定要在路由之前配置解析 token 的中间件
+
+
+// 路由之前配置解析 token 的中间件
 const expressJWT = require("express-jwt");
 const config = require("./config/config");
 app.use(expressJWT({ secret: config.jwtSecretKey }).unless({ path: [/^\/api\//, /^\/public\//] })); // [/^\/api\//]
@@ -90,15 +78,18 @@ app.use(group);
 // 导入并使用 chat 聊天模块
 const chat = require("./router/chat");
 app.use(chat);
+// 导入并使用 space 动态模块
+const space = require("./router/space");
+app.use(space);
 
 
 
-const { upload } = require("@/utils/util-multer");
-app.post("/upload/file", upload.single("photo"), (req, res) => {
-    console.log("访问到了这里");
+
+const { upload, pathConvert } = require("@/utils/util-multer");
+app.post("/upload/file", upload.single("file"), (req, res) => {
     console.log(req.file);
-    const chat_photo = ("http://127.0.0.1:3007\\" + req.file.path).replace(/\\/g, "/");
-
+    const chat_photo = pathConvert(req.file.path);
+    console.log(chat_photo);
     res.send({
         status: 0,
         message: "发送图片成功！",
@@ -109,18 +100,9 @@ app.post("/upload/file", upload.single("photo"), (req, res) => {
 
 
 
-
-
-
-
-// 未找到的页面处理
-// app.get("*", (req, res) => res.send("未找到，换一个试试吧！"));
-// 读取图片的接口
 app.get("*", (req, res) => {
-    // console.log(req.url);
     fs.readFile(`./${req.url}`, (err, data) => {
         if (err) return res.send("未找到，换一个试试吧！");
-        // console.log(data);
         res.send(data);
     })
 })
@@ -132,10 +114,8 @@ app.post("*", (req, res) => res.send("未找到，换一个试试吧！"));
 const joi = require("joi");
 // 定义错误级别的中间件
 app.use((err, req, res, next) => {
-
     // 验证失败导致的错误
     if (err instanceof joi.ValidationError) return res.cc(err);
-    console.log(111111111, err);
     // token 解析验证失败的错误
     if (err.name === "UnauthorizedError") return res.cc("token 身份认证失败");
 
@@ -145,13 +125,6 @@ app.use((err, req, res, next) => {
 })
 
 
-app.listen(3001, () => {
-    console.log("express server running at http://127.0.0.1:3001");
+app.listen(3007, () => {
+    console.log("express server running at http://127.0.0.1:3007");
 })
-
-
-
-// server.listen(3007, () => {
-//     console.log('listening on *:3007');
-// });
-// 小程序中weapp.socket.io连接不上后端socket.io

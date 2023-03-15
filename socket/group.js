@@ -3,7 +3,6 @@ const groupMsgModel = require("../model/group_msg");
 const io = require("./index").feed();
 // 建立连接
 io.on('connection', (socket) => {
-    console.log("连接上了aaaa");
     // 接收群消息
     socket.on("send-group-msg", async data => {
 

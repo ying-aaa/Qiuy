@@ -18,8 +18,8 @@ function addFriend_sehcma(_id, friendId, friend_name, friend_sing, friend_avater
 exports.addFriend = (req, res) => {
     const { _id, user_avater, nickname } = req.user;
     const { friendId, friend_name, friend_sing, friend_avater } = req.body;
-    console.log("nickname", req.user);
-    console.log("friend_name", friend_name);
+    // console.log("nickname", req.user);
+    // console.log("friend_name", friend_name);
     const generate_time = Date.now();
     const where = { $or: [{ userId: _id, friendId }, { friendId: _id, userId: friendId }] };
     if (_id === friendId) return res.cc("滚，不能添加自己为好友！");
@@ -83,7 +83,7 @@ exports.lookFriend = (req, res) => {
             if (err) return res.cc(err);
             friendsModel.aggregate(aggregate(where, '$$friendId', '$$userId')).exec((err, friendMsg) => {
                 if (err) return res.cc(err);
-                console.log(friendMsg);
+                // console.log(friendMsg);
                 userMsg.forEach((user, key) => {
                     user.friend_msg = user.friend_msg.concat(friendMsg.at(key).friend_msg);
                     user.friend_msg = user.friend_msg.sort((a, b) => b.send_time - a.send_time)?.at(0);
@@ -161,10 +161,16 @@ exports.friendCall = (req, res) => {
     if (!(friendId && friend_name)) return res.cc("参数无效！");
     const where = { userId: _id, friendId };
     const out = { $set: { friend_name } }
-    friendsModel.update(where, out, (err, docs) => {
+    friendsModel.findOneAndUpdate(where, out, { returnDocument: "after" }, (err, docs) => {
         if (err) return res.cc(err);
-        if (docs.modifiedCount !== 1) return res.cc("修改的名字与原来一样！");
-        res.cc("修改成功！", 0)
+        // if (docs.modifiedCount !== 1) return res.cc("修改的名字与原来一样！");
+        console.log(docs);
+        // res.cc("修改成功！", 0);
+        res.send({
+            message: "修改好友备注成功！",
+            status: 0,
+            data: docs
+        })
     })
 }
 
@@ -175,7 +181,7 @@ exports.clearTip = (req, res) => {
 
     friendsModel.update(where, { tip: 0 }).exec((err, docs) => {
         if (err) return console.log(err);
-        console.log(where, docs);
+        // console.log(where, docs);
         if (docs.modifiedCount !== 1) return console.log("清空未读消息数失败(修改的与原来的一样)");
     })
 }

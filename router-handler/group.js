@@ -2,6 +2,8 @@ const { default: mongoose } = require("mongoose");
 const groupsModel = require("../model/group");
 const groupMenberModel = require("../model/group_menber");
 const groupMsgModel = require("../model/group_msg");
+const { pathConvert } = require("@/utils/util-multer");
+
 // 建群需要 建群者ID，群名，群封面连接，群公告，群建立时间, 群成员信息(是个数组， 记录每个群成员的名字和头像)
 exports.createGroup = (req, res) => {
     const { _id } = req.user;
@@ -61,7 +63,7 @@ exports.JoinGroup = (req, res) => {
         { $match: { menberId: mongoose.Types.ObjectId(_id) } },
     ], (err, docs) => {
         if (err) return err;
-        console.log(docs);
+        // console.log(docs);
         const data = docs.map(item => {
             item.groups[0].tip = item.tip;
             item.groups[0].group_last_msg = item.group_last_msg.length && item.group_last_msg.reduce((pre, cur) => pre.send_time > cur.send_time ? pre : cur);
@@ -141,21 +143,18 @@ exports.interiorName = (req, res) => {
 exports.handlerMenber = (req, res) => {
     const where = { menberId: req.user._id, groupId: req.body.groupId };
     Reflect.deleteProperty(req.body, "groupId");
-    console.log(where);
-    console.log(req.body);
-    groupMenberModel.updateOne(where, { $set: req.body }, (err, docs) => {
+    groupMenberModel.updateOne(where, { $set: req.body }, async (err, docs) => {
         if (err) return res.cc(err);
         if (docs.modifiedCount !== 1) return res.cc("修改了个寂寞！");
 
-        console.log("11111******&&&&&&&", docs);
+        const data = await groupMenberModel.findOne(where);
+        console.log(data);
         res.send({
             status: 0,
             message: "更新群内信息成功！",
-            data: req.body
+            data
         })
     });
-
-
 
 
     // console.log("屏蔽群消息");
@@ -175,10 +174,9 @@ exports.handlerMenber = (req, res) => {
 
 // 更新群头像 需要：groupId
 exports.groupAvater = (req, res) => {
-    const group_avater = ("http://127.0.0.1:3007\\" + req.file.path).replace(/\\/g, "/");
-
+    console.log(console.log("qqqqqqqqqq************************"));
+    const group_avater = pathConvert(req.file.path);
     const where = { _id: req.body.groupId };
-
     groupsModel.updateOne(where, { $set: { group_avater } }, (err, docs) => {
         if (err) return res.cc(err);
         if (docs.modifiedCount !== 1) return res.cc("更新头像失败(修改的与原来的一样)");

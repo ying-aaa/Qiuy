@@ -1,12 +1,9 @@
 const friendsModel = require("../model/friedns");
 const friendMsgModel = require("../model/friend_msg");
-
 const io = require("./index").feed();
 let onlineUser = []
 // 建立连接
 io.on('connection', (socket) => {
-    console.log(987654321);
-
     // 用户上线的接口
     socket.on("pop-up-online", (userInfo) => {
         // 存储当前在线用户
@@ -14,7 +11,7 @@ io.on('connection', (socket) => {
         const index = onlineUser.findIndex(item => item._id === userInfo._id);
         if (is) {
             onlineUser.splice(index, 1, userInfo);
-            return
+            return;
         }
 
         onlineUser.push(userInfo)
