@@ -58,7 +58,7 @@ mongoose.connect(uri, {
 		name: 'qiuy',
 		type: 'phone'
 	});
-	device.save(function(err, device) {
+	device.save(function (err, device) {
 		if (err) return console.error(err);
 		console.log(device.name + " saved to devices collection.");
 	});
