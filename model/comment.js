@@ -5,7 +5,7 @@ const commentSchema = mongoose.Schema({
     userId: Schema.Types.ObjectId,
     spaceId: Schema.Types.ObjectId,
     content: String,
-    create_time: {
+    comment_time: {
         type: Number,
         default: Date.now()
     }
