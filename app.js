@@ -98,7 +98,9 @@ app.post("/upload/file", upload.single("file"), (req, res) => {
 })
 
 
-
+app.get("/", (req, res) => {
+    res.send("你好，欢迎访问！");
+})
 
 app.get("*", (req, res) => {
     fs.readFile(`./${req.url}`, (err, data) => {
