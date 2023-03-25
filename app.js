@@ -11,7 +11,7 @@ const app = express();
 // socket.register(server);
 
 // 打开 @ 别名
-require('module-alias/register');
+// require('module-alias/register');
 
 // 打开聊天
 // require("./socket/friend.js");
@@ -87,9 +87,7 @@ app.use(expressJWT({ secret: config.jwtSecretKey }).unless({ path: [/^\/api\//, 
 
 const { upload, pathConvert } = require("@/utils/util-multer");
 app.post("/upload/file", upload.single("file"), (req, res) => {
-    console.log(req.file);
     const chat_photo = pathConvert(req.file.path);
-    console.log(chat_photo);
     res.send({
         status: 0,
         message: "发送图片成功！",
