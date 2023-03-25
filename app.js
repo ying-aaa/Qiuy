@@ -4,20 +4,20 @@ const fs = require("fs");
 
 
 // 网页socket配置
-const server = app.listen(8082);
+// const server = app.listen(8082);
 // 连接webSocket
-const socket = require("./socket/index.js");
-socket.register(server);
+// const socket = require("./socket/index.js");
+// socket.register(server);
 
 // 打开 @ 别名
 require('module-alias/register');
 
 // 打开聊天
-require("./socket/friend.js");
-require("./socket/chat.js");
-require("./socket/group.js");
+// require("./socket/friend.js");
+// require("./socket/chat.js");
+// require("./socket/group.js");
 // 环境变量配置
-require("./env.variable.js");
+// require("./env.variable.js");
 const { QIUY_URL } = process.env;
 console.log(QIUY_URL);
 
@@ -61,26 +61,26 @@ app.use(expressJWT({ secret: config.jwtSecretKey }).unless({ path: [/^\/api\//, 
 
 
 // 导入并使用 user 用户模块
-const user = require("./router/user");
-app.use("/api", user);
+// const user = require("./router/user");
+// app.use("/api", user);
 // 导入并使用 userinfo 用户模块
-const userInfo = require("./router/userInfo");
-app.use(userInfo);
+// const userInfo = require("./router/userInfo");
+// app.use(userInfo);
 // 导入并使用 search 模块
-const search = require("./router/search");
-app.use(search);
+// const search = require("./router/search");
+// app.use(search);
 // 导入并使用 friend 模块
-const friend = require("./router/friend");
-app.use(friend);
+// const friend = require("./router/friend");
+// app.use(friend);
 // 导入并使用 group 群模块
-const group = require("./router/group");
-app.use(group);
+// const group = require("./router/group");
+// app.use(group);
 // 导入并使用 chat 聊天模块
-const chat = require("./router/chat");
-app.use(chat);
+// const chat = require("./router/chat");
+// app.use(chat);
 // 导入并使用 space 动态模块
-const space = require("./router/space");
-app.use(space);
+// const space = require("./router/space");
+// app.use(space);
 
 
 
