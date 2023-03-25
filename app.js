@@ -5,18 +5,18 @@ const app = express();
 
 
 // // 网页socket配置
-const server = app.listen(8082);
+// const server = app.listen(8082);
 // 连接webSocket
-const socket = require("./socket/index.js");
-socket.register(server);
+// const socket = require("./socket/index.js");
+// socket.register(server);
 
 // 打开 @ 别名
 require('module-alias/register');
 
 打开聊天
-require("./socket/friend.js");
-require("./socket/chat.js");
-require("./socket/group.js");
+// require("./socket/friend.js");
+// require("./socket/chat.js");
+// require("./socket/group.js");
 // 环境变量配置
 require("./env.variable.js");
 const { QIUY_URL } = process.env;
@@ -85,17 +85,17 @@ app.use(expressJWT({ secret: config.jwtSecretKey }).unless({ path: [/^\/api\//, 
 
 
 
-// const { upload, pathConvert } = require("@/utils/util-multer");
-// app.post("/upload/file", upload.single("file"), (req, res) => {
-//     console.log(req.file);
-//     const chat_photo = pathConvert(req.file.path);
-//     console.log(chat_photo);
-//     res.send({
-//         status: 0,
-//         message: "发送图片成功！",
-//         data: chat_photo
-//     })
-// })
+const { upload, pathConvert } = require("@/utils/util-multer");
+app.post("/upload/file", upload.single("file"), (req, res) => {
+    console.log(req.file);
+    const chat_photo = pathConvert(req.file.path);
+    console.log(chat_photo);
+    res.send({
+        status: 0,
+        message: "发送图片成功！",
+        data: chat_photo
+    })
+})
 
 
 app.get("/", (req, res) => {
