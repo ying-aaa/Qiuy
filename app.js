@@ -40,22 +40,23 @@ app.use(express.json());
 // app.use(express.static(path.join(__dirname, "upload")));
 
 // **一定要在路由之前**，使用全局中间件设置一个响应客户端数据的中间件函数供下游使用
-app.use((req, res, next) => {
-    // 设置 status 默认值为 1，表示失败的情况
-    res.cc = function (err, status = 1) {
-        // err的值，可能是一个错误对象，也可能时应该错误的描述字符串
-        return res.send({
-            status, message: err instanceof Error ? err.message : err
-        })
-    }
-    next();
-});
+// app.use((req, res, next) => {
+//     // 设置 status 默认值为 1，表示失败的情况
+//     res.cc = function (err, status = 1) {
+//         // err的值，可能是一个错误对象，也可能时应该错误的描述字符串
+//         return res.send({
+//             status, message: err instanceof Error ? err.message : err
+//         })
+//     }
+//     next();
+// });
 
 
+// 问题
 // 路由之前配置解析 token 的中间件
-const expressJWT = require("express-jwt");
-const config = require("./config/config");
-app.use(expressJWT({ secret: config.jwtSecretKey }).unless({ path: [/^\/api\//, /^\/public\//] })); // [/^\/api\//]
+// const expressJWT = require("express-jwt");
+// const config = require("./config/config");
+// app.use(expressJWT({ secret: config.jwtSecretKey }).unless({ path: [/^\/api\//, /^\/public\//] })); // [/^\/api\//]
 
 
 
@@ -103,12 +104,12 @@ app.get("/", (req, res) => {
     res.send("你好，欢迎访问！");
 })
 
-// app.get("*", (req, res) => {
-//     fs.readFile(`./${req.url}`, (err, data) => {
-//         if (err) return res.send("未找到，换一个试试吧！");
-//         res.send(data);
-//     })
-// })
+app.get("*", (req, res) => {
+    fs.readFile(`./${req.url}`, (err, data) => {
+        if (err) return res.send("未找到，换一个试试吧！");
+        res.send(data);
+    })
+})
 app.post("*", (req, res) => res.send("未找到，换一个试试吧！"));
 
 
