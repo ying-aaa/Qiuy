@@ -29,15 +29,15 @@ app.use(cors({}))
 // 通过 express.json() 这个中间件, 解析表单中的 JSON 格式的数据
 app.use(express.json());
 
-// // 导入解析 body-parser 表单数据的中间件 
-// const parser = require("body-parser");
-// app.use(parser.urlencoded({ extended: false }));
+// 导入解析 body-parser 表单数据的中间件 
+const parser = require("body-parser");
+app.use(parser.urlencoded({ extended: false }));
 
-// // // 配置解析 application/x-www-form-urlencode 表单数据的中间件
-// app.use(express.urlencoded({ extended: false }));
+// // 配置解析 application/x-www-form-urlencode 表单数据的中间件
+app.use(express.urlencoded({ extended: false }));
 
-// 静态资源共享
-// app.use(express.static(path.join(__dirname, "upload")));
+静态资源共享
+app.use(express.static(path.join(__dirname, "upload")));
 
 // **一定要在路由之前**，使用全局中间件设置一个响应客户端数据的中间件函数供下游使用
 app.use((req, res, next) => {
@@ -52,7 +52,7 @@ app.use((req, res, next) => {
 });
 
 
-// 问题
+
 // 路由之前配置解析 token 的中间件
 const expressJWT = require("express-jwt");
 const config = require("./config/config");
@@ -61,7 +61,7 @@ app.use(expressJWT({ secret: config.jwtSecretKey }).unless({ path: [/^\/api\//, 
 
 
 
-
+// 问题
 // 导入并使用 user 用户模块
 // const user = require("./router/user");
 // app.use("/api", user);
