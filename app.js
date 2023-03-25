@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 // const fs = require("fs");
-// const { promises: fs } = require('@vercel/node');
+const { promises: fs } = require('@vercel/node');
 
 
 // // 网页socket配置
@@ -52,10 +52,11 @@ app.use((req, res, next) => {
 });
 
 
+// 问题
 // 路由之前配置解析 token 的中间件
-const expressJWT = require("express-jwt");
-const config = require("./config/config");
-app.use(expressJWT({ secret: config.jwtSecretKey }).unless({ path: [/^\/api\//, /^\/public\//] })); // [/^\/api\//]
+// const expressJWT = require("express-jwt");
+// const config = require("./config/config");
+// app.use(expressJWT({ secret: config.jwtSecretKey }).unless({ path: [/^\/api\//, /^\/public\//] })); // [/^\/api\//]
 
 
 
@@ -103,12 +104,12 @@ app.get("/", (req, res) => {
     res.send("你好，欢迎访问！");
 })
 
-// app.get("*", (req, res) => {
-//     fs.readFile(`./${req.url}`, (err, data) => {
-//         if (err) return res.send("未找到，换一个试试吧！");
-//         res.send(data);
-//     })
-// })
+app.get("*", (req, res) => {
+    fs.readFile(`./${req.url}`, (err, data) => {
+        if (err) return res.send("未找到，换一个试试吧！");
+        res.send(data);
+    })
+})
 app.post("*", (req, res) => res.send("未找到，换一个试试吧！"));
 
 
