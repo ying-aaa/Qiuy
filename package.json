@@ -5,11 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "serve": "set NODE_ENV=http://127.0.0.1:3007  && nodemon ./app.js",
-    "start": "node app.js",
-    "build": "npm run build:css && npm run build:js",
-    "build:css": "sass src/styles/main.scss dist/styles/main.css",
-    "build:js": "browserify src/scripts/main.js -o dist/scripts/main.js"
+    "serve": "set NODE_ENV=http://127.0.0.1:3007  && node app.js",
+    "start": "node app.js"
   },
   "keywords": [],
   "author": "",
