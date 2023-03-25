@@ -18,9 +18,9 @@ require('module-alias/register');
 // require("./socket/chat.js");
 // require("./socket/group.js");
 // 环境变量配置
-require("./env.variable.js");
-const { QIUY_URL } = process.env;
-console.log(QIUY_URL);
+// require("./env.variable.js");
+// const { QIUY_URL } = process.env;
+// console.log(QIUY_URL);
 
 // 引入 cors 中间件, 配置跨域
 const cors = require("cors");
