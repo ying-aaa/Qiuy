@@ -40,49 +40,49 @@ app.use(express.json());
 // app.use(express.static(path.join(__dirname, "upload")));
 
 // **一定要在路由之前**，使用全局中间件设置一个响应客户端数据的中间件函数供下游使用
-// app.use((req, res, next) => {
-//     // 设置 status 默认值为 1，表示失败的情况
-//     res.cc = function (err, status = 1) {
-//         // err的值，可能是一个错误对象，也可能时应该错误的描述字符串
-//         return res.send({
-//             status, message: err instanceof Error ? err.message : err
-//         })
-//     }
-//     next();
-// });
+app.use((req, res, next) => {
+    // 设置 status 默认值为 1，表示失败的情况
+    res.cc = function (err, status = 1) {
+        // err的值，可能是一个错误对象，也可能时应该错误的描述字符串
+        return res.send({
+            status, message: err instanceof Error ? err.message : err
+        })
+    }
+    next();
+});
 
 
 // 问题
 // 路由之前配置解析 token 的中间件
-// const expressJWT = require("express-jwt");
-// const config = require("./config/config");
-// app.use(expressJWT({ secret: config.jwtSecretKey }).unless({ path: [/^\/api\//, /^\/public\//] })); // [/^\/api\//]
+const expressJWT = require("express-jwt");
+const config = require("./config/config");
+app.use(expressJWT({ secret: config.jwtSecretKey }).unless({ path: [/^\/api\//, /^\/public\//] })); // [/^\/api\//]
 
 
 
 
 
-// // 导入并使用 user 用户模块
-// const user = require("./router/user");
-// app.use("/api", user);
-// // 导入并使用 userinfo 用户模块
-// const userInfo = require("./router/userInfo");
-// app.use(userInfo);
-// // 导入并使用 search 模块
-// const search = require("./router/search");
-// app.use(search);
-// // 导入并使用 friend 模块
-// const friend = require("./router/friend");
-// app.use(friend);
-// // 导入并使用 group 群模块
-// const group = require("./router/group");
-// app.use(group);
-// // 导入并使用 chat 聊天模块
-// const chat = require("./router/chat");
-// app.use(chat);
-// // 导入并使用 space 动态模块
-// const space = require("./router/space");
-// app.use(space);
+// 导入并使用 user 用户模块
+const user = require("./router/user");
+app.use("/api", user);
+// 导入并使用 userinfo 用户模块
+const userInfo = require("./router/userInfo");
+app.use(userInfo);
+// 导入并使用 search 模块
+const search = require("./router/search");
+app.use(search);
+// 导入并使用 friend 模块
+const friend = require("./router/friend");
+app.use(friend);
+// 导入并使用 group 群模块
+const group = require("./router/group");
+app.use(group);
+// 导入并使用 chat 聊天模块
+const chat = require("./router/chat");
+app.use(chat);
+// 导入并使用 space 动态模块
+const space = require("./router/space");
+app.use(space);
 
 
 
