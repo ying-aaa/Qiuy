@@ -10,7 +10,7 @@ const fs = require("fs");
 // socket.register(server);
 
 // 打开 @ 别名
-require('module-alias/register');
+// require('module-alias/register');
 
 // 打开聊天
 // require("./socket/friend.js");
