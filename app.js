@@ -11,7 +11,7 @@ const app = express();
 // socket.register(server);
 
 // 打开 @ 别名
-require('module-alias/register');
+// require('module-alias/register');
 
 // 打开聊天
 // require("./socket/friend.js");
@@ -29,12 +29,12 @@ app.use(cors({}))
 // 通过 express.json() 这个中间件, 解析表单中的 JSON 格式的数据
 app.use(express.json());
 
-// 导入解析 body-parser 表单数据的中间件 
-const parser = require("body-parser");
-app.use(parser.urlencoded({ extended: false }));
+// // 导入解析 body-parser 表单数据的中间件 
+// const parser = require("body-parser");
+// app.use(parser.urlencoded({ extended: false }));
 
-// // 配置解析 application/x-www-form-urlencode 表单数据的中间件
-app.use(express.urlencoded({ extended: false }));
+// // // 配置解析 application/x-www-form-urlencode 表单数据的中间件
+// app.use(express.urlencoded({ extended: false }));
 
 // 静态资源共享
 // app.use(express.static(path.join(__dirname, "upload")));
@@ -52,10 +52,10 @@ app.use((req, res, next) => {
 });
 
 
-// 路由之前配置解析 token 的中间件
-const expressJWT = require("express-jwt");
-const config = require("./config/config");
-app.use(expressJWT({ secret: config.jwtSecretKey }).unless({ path: [/^\/api\//, /^\/public\//] })); // [/^\/api\//]
+// // 路由之前配置解析 token 的中间件
+// const expressJWT = require("express-jwt");
+// const config = require("./config/config");
+// app.use(expressJWT({ secret: config.jwtSecretKey }).unless({ path: [/^\/api\//, /^\/public\//] })); // [/^\/api\//]
 
 
 
@@ -86,17 +86,17 @@ app.use(expressJWT({ secret: config.jwtSecretKey }).unless({ path: [/^\/api\//, 
 
 
 
-const { upload, pathConvert } = require("@/utils/util-multer");
-app.post("/upload/file", upload.single("file"), (req, res) => {
-    console.log(req.file);
-    const chat_photo = pathConvert(req.file.path);
-    console.log(chat_photo);
-    res.send({
-        status: 0,
-        message: "发送图片成功！",
-        data: chat_photo
-    })
-})
+// const { upload, pathConvert } = require("@/utils/util-multer");
+// app.post("/upload/file", upload.single("file"), (req, res) => {
+//     console.log(req.file);
+//     const chat_photo = pathConvert(req.file.path);
+//     console.log(chat_photo);
+//     res.send({
+//         status: 0,
+//         message: "发送图片成功！",
+//         data: chat_photo
+//     })
+// })
 
 
 app.get("/", (req, res) => {
@@ -114,18 +114,18 @@ app.post("*", (req, res) => res.send("未找到，换一个试试吧！"));
 
 
 
-const joi = require("joi");
-// 定义错误级别的中间件
-app.use((err, req, res, next) => {
-    // 验证失败导致的错误
-    if (err instanceof joi.ValidationError) return res.cc(err);
-    // token 解析验证失败的错误
-    if (err.name === "UnauthorizedError") return res.cc("token 身份认证失败");
+// const joi = require("joi");
+// // 定义错误级别的中间件
+// app.use((err, req, res, next) => {
+//     // 验证失败导致的错误
+//     if (err instanceof joi.ValidationError) return res.cc(err);
+//     // token 解析验证失败的错误
+//     if (err.name === "UnauthorizedError") return res.cc("token 身份认证失败");
 
 
-    // 未知的错误 --- 在 express中，不允许使用超过一次 res.send()
-    res.send(err);
-})
+//     // 未知的错误 --- 在 express中，不允许使用超过一次 res.send()
+//     res.send(err);
+// })
 
 
 app.listen(3007, () => {
@@ -134,6 +134,6 @@ app.listen(3007, () => {
 
 
 app.use((req, res, next) => {
-    res.status(404).send('Sorry, we cannot find that!');
+    // res.status(404).send('Sorry, we cannot find that!');
     res.status(500).send('Sorry, we cannot find that!');
 });
