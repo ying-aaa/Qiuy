@@ -36,8 +36,6 @@ app.use(parser.urlencoded({ extended: false }));
 // // 配置解析 application/x-www-form-urlencode 表单数据的中间件
 app.use(express.urlencoded({ extended: false }));
 
-// 静态资源共享
-app.use(express.static(path.join(__dirname, "upload")));
 
 // **一定要在路由之前**，使用全局中间件设置一个响应客户端数据的中间件函数供下游使用
 app.use((req, res, next) => {
