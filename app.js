@@ -115,18 +115,18 @@ app.post("*", (req, res) => res.send("未找到，换一个试试吧！"));
 
 
 
-// const joi = require("joi");
-// // 定义错误级别的中间件
-// app.use((err, req, res, next) => {
-//     // 验证失败导致的错误
-//     if (err instanceof joi.ValidationError) return res.cc(err);
-//     // token 解析验证失败的错误
-//     if (err.name === "UnauthorizedError") return res.cc("token 身份认证失败");
+const joi = require("joi");
+// 定义错误级别的中间件
+app.use((err, req, res, next) => {
+    // 验证失败导致的错误
+    if (err instanceof joi.ValidationError) return res.cc(err);
+    // token 解析验证失败的错误
+    if (err.name === "UnauthorizedError") return res.cc("token 身份认证失败");
 
 
-//     // 未知的错误 --- 在 express中，不允许使用超过一次 res.send()
-//     res.send(err);
-// })
+    // 未知的错误 --- 在 express中，不允许使用超过一次 res.send()
+    res.send(err);
+})
 
 
 app.listen(3007, () => {
