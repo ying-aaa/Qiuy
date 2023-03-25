@@ -129,7 +129,7 @@ app.post("*", (req, res) => res.send("未找到，换一个试试吧！"));
 
 
 app.listen(3007, () => {
-    console.log("express server running at http://127.0.0.1:3007");
+    console.log("express server running at http://127.0.0.1:3007!");
 })
 
 
