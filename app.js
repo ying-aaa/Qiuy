@@ -54,9 +54,9 @@ app.use((req, res, next) => {
 
 // 问题
 // 路由之前配置解析 token 的中间件
-// const expressJWT = require("express-jwt");
-// const config = require("./config/config");
-// app.use(expressJWT({ secret: config.jwtSecretKey }).unless({ path: [/^\/api\//, /^\/public\//] })); // [/^\/api\//]
+const expressJWT = require("express-jwt");
+const config = require("./config/config");
+app.use(expressJWT({ secret: config.jwtSecretKey }).unless({ path: [/^\/api\//, /^\/public\//] })); // [/^\/api\//]
 
 
 
