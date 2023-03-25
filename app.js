@@ -13,7 +13,7 @@ const app = express();
 // 打开 @ 别名
 require('module-alias/register');
 
-打开聊天
+// 打开聊天
 // require("./socket/friend.js");
 // require("./socket/chat.js");
 // require("./socket/group.js");
