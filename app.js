@@ -102,12 +102,12 @@ app.get("/", (req, res) => {
     res.send("你好，欢迎访问！");
 })
 
-app.get("*", (req, res) => {
-    fs.readFile(`./${req.url}`, (err, data) => {
-        if (err) return res.send("未找到，换一个试试吧！");
-        res.send(data);
-    })
-})
+// app.get("*", (req, res) => {
+//     fs.readFile(`./${req.url}`, (err, data) => {
+//         if (err) return res.send("未找到，换一个试试吧！");
+//         res.send(data);
+//     })
+// })
 app.post("*", (req, res) => res.send("未找到，换一个试试吧！"));
 
 
