@@ -85,15 +85,15 @@ app.use(expressJWT({ secret: config.jwtSecretKey }).unless({ path: [/^\/api\//, 
 
 
 
-const { upload, pathConvert } = require("@/utils/util-multer");
-app.post("/upload/file", upload.single("file"), (req, res) => {
-    const chat_photo = pathConvert(req.file.path);
-    res.send({
-        status: 0,
-        message: "发送图片成功！",
-        data: chat_photo
-    })
-})
+// const { upload, pathConvert } = require("@/utils/util-multer");
+// app.post("/upload/file", upload.single("file"), (req, res) => {
+//     const chat_photo = pathConvert(req.file.path);
+//     res.send({
+//         status: 0,
+//         message: "发送图片成功！",
+//         data: chat_photo
+//     })
+// })
 
 
 app.get("/", (req, res) => {
