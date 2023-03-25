@@ -4,11 +4,11 @@ const app = express();
 // const { promises: fs } = require('@vercel/node');
 
 
-// 网页socket配置
-const server = app.listen(8082);
-// 连接webSocket
-const socket = require("./socket/index.js");
-socket.register(server);
+// // 网页socket配置
+// const server = app.listen(8082);
+// // 连接webSocket
+// const socket = require("./socket/index.js");
+// socket.register(server);
 
 // 打开 @ 别名
 require('module-alias/register');
@@ -131,3 +131,9 @@ app.use((err, req, res, next) => {
 app.listen(3007, () => {
     console.log("express server running at http://127.0.0.1:3007");
 })
+
+
+app.use((req, res, next) => {
+    res.status(404).send('Sorry, we cannot find that!');
+    res.status(500).send('Sorry, we cannot find that!');
+});
