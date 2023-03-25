@@ -5,22 +5,22 @@ const app = express();
 
 
 // // 网页socket配置
-// const server = app.listen(8082);
-// // 连接webSocket
-// const socket = require("./socket/index.js");
-// socket.register(server);
+const server = app.listen(8082);
+// 连接webSocket
+const socket = require("./socket/index.js");
+socket.register(server);
 
 // 打开 @ 别名
-// require('module-alias/register');
+require('module-alias/register');
 
-// 打开聊天
-// require("./socket/friend.js");
-// require("./socket/chat.js");
-// require("./socket/group.js");
-// // 环境变量配置
-// require("./env.variable.js");
-// const { QIUY_URL } = process.env;
-// console.log(QIUY_URL);
+打开聊天
+require("./socket/friend.js");
+require("./socket/chat.js");
+require("./socket/group.js");
+// 环境变量配置
+require("./env.variable.js");
+const { QIUY_URL } = process.env;
+console.log(QIUY_URL);
 
 // 引入 cors 中间件, 配置跨域
 const cors = require("cors");
