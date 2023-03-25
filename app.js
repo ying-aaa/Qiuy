@@ -1,25 +1,25 @@
 const express = require("express");
 const app = express();
-// const fs = require("fs");
+const fs = require("fs");
 
 
 // 网页socket配置
-// const server = app.listen(8082);
+const server = app.listen(8082);
 // 连接webSocket
-// const socket = require("./socket/index.js");
-// socket.register(server);
+const socket = require("./socket/index.js");
+socket.register(server);
 
 // 打开 @ 别名
-// require('module-alias/register');
+require('module-alias/register');
 
 // 打开聊天
-// require("./socket/friend.js");
-// require("./socket/chat.js");
-// require("./socket/group.js");
+require("./socket/friend.js");
+require("./socket/chat.js");
+require("./socket/group.js");
 // 环境变量配置
-// require("./env.variable.js");
-// const { QIUY_URL } = process.env;
-// console.log(QIUY_URL);
+require("./env.variable.js");
+const { QIUY_URL } = process.env;
+console.log(QIUY_URL);
 
 // 引入 cors 中间件, 配置跨域
 const cors = require("cors");
@@ -61,54 +61,54 @@ app.use(expressJWT({ secret: config.jwtSecretKey }).unless({ path: [/^\/api\//, 
 
 
 // 导入并使用 user 用户模块
-// const user = require("./router/user");
-// app.use("/api", user);
+const user = require("./router/user");
+app.use("/api", user);
 // 导入并使用 userinfo 用户模块
-// const userInfo = require("./router/userInfo");
-// app.use(userInfo);
+const userInfo = require("./router/userInfo");
+app.use(userInfo);
 // 导入并使用 search 模块
-// const search = require("./router/search");
-// app.use(search);
+const search = require("./router/search");
+app.use(search);
 // 导入并使用 friend 模块
-// const friend = require("./router/friend");
-// app.use(friend);
+const friend = require("./router/friend");
+app.use(friend);
 // 导入并使用 group 群模块
-// const group = require("./router/group");
-// app.use(group);
+const group = require("./router/group");
+app.use(group);
 // 导入并使用 chat 聊天模块
-// const chat = require("./router/chat");
-// app.use(chat);
+const chat = require("./router/chat");
+app.use(chat);
 // 导入并使用 space 动态模块
-// const space = require("./router/space");
-// app.use(space);
+const space = require("./router/space");
+app.use(space);
 
 
 
 
-// const { upload, pathConvert } = require("@/utils/util-multer");
-// app.post("/upload/file", upload.single("file"), (req, res) => {
-//     console.log(req.file);
-//     const chat_photo = pathConvert(req.file.path);
-//     console.log(chat_photo);
-//     res.send({
-//         status: 0,
-//         message: "发送图片成功！",
-//         data: chat_photo
-//     })
-// })
+const { upload, pathConvert } = require("@/utils/util-multer");
+app.post("/upload/file", upload.single("file"), (req, res) => {
+    console.log(req.file);
+    const chat_photo = pathConvert(req.file.path);
+    console.log(chat_photo);
+    res.send({
+        status: 0,
+        message: "发送图片成功！",
+        data: chat_photo
+    })
+})
 
 
 app.get("/", (req, res) => {
     res.send("你好，欢迎访问！");
 })
 
-// app.get("*", (req, res) => {
-//     fs.readFile(`./${req.url}`, (err, data) => {
-//         if (err) return res.send("未找到，换一个试试吧！");
-//         res.send(data);
-//     })
-// })
-// app.post("*", (req, res) => res.send("未找到，换一个试试吧！"));
+app.get("*", (req, res) => {
+    fs.readFile(`./${req.url}`, (err, data) => {
+        if (err) return res.send("未找到，换一个试试吧！");
+        res.send(data);
+    })
+})
+app.post("*", (req, res) => res.send("未找到，换一个试试吧！"));
 
 
 
@@ -126,29 +126,7 @@ app.use((err, req, res, next) => {
     res.send(err);
 })
 
-// const port = process.env.PORT || 3007;
+
 app.listen(3007, () => {
-    console.log("express server running at http://127.0.0.1:3007!");
+    console.log("express server running at http://127.0.0.1:3007");
 })
-app.use((req, res, next) => {
-    res.status(404).send('Sorry, we cannot find that!');
-});
-
-
-// const express = require('express');
-// const cors = require('cors');
-// const app = express();
-
-// app.use(cors());
-
-// app.get('/', (req, res) => {
-//     res.send('Hello, world!');
-// });
-
-// const port = process.env.PORT || 3000;
-// app.listen(3007, () => {
-//     console.log(`Server listening on port ${port}`);
-// });
-// app.use((req, res, next) => {
-//     res.status(404).send('Sorry, we cannot find that!');
-// });
