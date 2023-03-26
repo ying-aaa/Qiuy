@@ -82,8 +82,8 @@ app.use(search);
 const chat = require("./router/chat");
 app.use(chat);
 // // 导入并使用 space 动态模块
-const space = require("./routr/sepace");
-app.use(space);
+// const space = require("./routr/sepace");
+// app.use(space);
 
 
 
