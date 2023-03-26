@@ -1,16 +1,16 @@
 const express = require("express");
 const app = express();
-// const fs = require("fs");
+// const fs = require("fs");  *************************************88
 // const { promises: fs } = require('@vercel/node');
 
 
-// // 网页socket配置
+// // 网页socket配置 *******************************8
 // const server = app.listen(8082);
 // 连接webSocket
 // const socket = require("./socket/index.js");
 // socket.register(server);
 
-// 打开 @ 别名
+// 打开 @ 别名  ***************************************
 // require('module-alias/register');
 
 // 打开聊天
@@ -37,7 +37,7 @@ app.use(parser.urlencoded({ extended: false }));
 app.use(express.urlencoded({ extended: false }));
 
 
-// **一定要在路由之前**，使用全局中间件设置一个响应客户端数据的中间件函数供下游使用
+// **路由之前**，使用全局中间件设置一个响应客户端数据的中间件函数供下游使用
 app.use((req, res, next) => {
     // 设置 status 默认值为 1，表示失败的情况
     res.cc = function (err, status = 1) {
@@ -59,7 +59,7 @@ app.use(expressJWT({ secret: config.jwtSecretKey }).unless({ path: [/^\/api\//, 
 
 
 
-// 问题
+// 问题 *******************************
 // 导入并使用 user 用户模块
 // const user = require("./router/user");
 // app.use("/api", user);
@@ -85,15 +85,15 @@ app.use(expressJWT({ secret: config.jwtSecretKey }).unless({ path: [/^\/api\//, 
 
 
 
-// const { upload, pathConvert } = require("@/utils/util-multer");
-// app.post("/upload/file", upload.single("file"), (req, res) => {
-//     const chat_photo = pathConvert(req.file.path);
-//     res.send({
-//         status: 0,
-//         message: "发送图片成功！",
-//         data: chat_photo
-//     })
-// })
+const { upload, pathConvert } = require("./utils/util-multer");
+app.post("/upload/file", upload.single("file"), (req, res) => {
+    const chat_photo = pathConvert(req.file.path);
+    res.send({
+        status: 0,
+        message: "发送图片成功！",
+        data: chat_photo
+    })
+})
 
 
 app.get("/", (req, res) => {

@@ -2,7 +2,7 @@ const usersModel = require("../model/users");
 const bcrypt = require("bcryptjs");
 const friendsModel = require("../model/friedns");
 const groupMenberModel = require("../model/group_menber");
-const { pathConvert } = require("@/utils/util-multer");
+const { pathConvert } = require("../utils/util-multer");
 
 // 获取用户信息
 exports.getUserInfo = (req, res) => {

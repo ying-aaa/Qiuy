@@ -2,7 +2,7 @@ const { default: mongoose } = require("mongoose");
 const groupsModel = require("../model/group");
 const groupMenberModel = require("../model/group_menber");
 const groupMsgModel = require("../model/group_msg");
-const { pathConvert } = require("@/utils/util-multer");
+const { pathConvert } = require("../utils/util-multer");
 
 // 建群需要 建群者ID，群名，群封面连接，群公告，群建立时间, 群成员信息(是个数组， 记录每个群成员的名字和头像)
 exports.createGroup = (req, res) => {

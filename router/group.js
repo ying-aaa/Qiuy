@@ -6,7 +6,7 @@ const router = express.Router();
 const group_handler = require("../router-handler/group");
 const { create_group_schema } = require("../schema/group");
 const expressJoi = require("@escook/express-joi");
-const { upload } = require("@/utils/util-multer");
+const { upload } = require("../utils/util-multer");
 
 
 router.post("/create/group", expressJoi(create_group_schema), group_handler.createGroup);
