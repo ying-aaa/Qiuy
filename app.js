@@ -3,6 +3,7 @@ const app = express();
 // const fs = require("fs");  *************************************88
 // const { promises: fs } = require('@vercel/node');
 
+require("./db");
 
 // 网页socket配置 *******************************8
 const server = app.listen(8082);
