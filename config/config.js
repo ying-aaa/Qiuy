@@ -11,5 +11,9 @@ module.exports = {
         pass: "zhongfncbincbahj"
     },
     // 部署的可以使用的环境变量
-    envs: ["computer", "android"]
+    envs: ["computer", "android"],
+    // mongodb数据库配置
+    db: {
+        uri: "mongodb+srv://qiuy:ZHANGli040905@qiuy.f2ry03c.mongodb.net/?retryWrites=true&w=majority"
+    }
 }
