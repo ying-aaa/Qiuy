@@ -71,8 +71,8 @@ app.use(search);
 // const friend = require("./router/friend");
 // app.use(friend);
 // // 导入并使用 group 群模块
-// const group = require("./router/group");
-// app.use(group);
+const group = require("./router/group");
+app.use(group);
 // // 导入并使用 chat 聊天模块
 // const chat = require("./router/chat");
 // app.use(chat);
@@ -95,7 +95,7 @@ app.post("/upload/file", upload.single("file"), (req, res) => {
 
 
 app.get("/api/hello", (req, res) => {
-    res.send("你好，欢迎访问！");
+    res.send("你好，欢迎访问！!!!");
 })
 app.get("/", (req, res) => {
     res.send("你好，欢迎访问项目的根路径！");
