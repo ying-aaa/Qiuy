@@ -37,32 +37,32 @@
 
 
 
-// try {
-const mongoose = require('mongoose');
-const config = require('../config/config');
-mongoose.set('strictQuery', true);
-mongoose.connect(config.db.uri, {
-	useNewUrlParser: true,
-	useUnifiedTopology: true
-}, err => {
-	if (err) return console.log("数据库连接失败");
-	console.log("数据库连接成功!");
-	// we're connected! 
-	// const deviceSchema = new mongoose.Schema({
-	// 	name: String,
-	// 	type: String
-	// });
-	// const Device = mongoose.model('Device', deviceSchema);
-	// const device = new Device({
-	// 	name: 'qiuy',
-	// 	type: 'phone'
-	// });
-	// device.save(function (err, device) {
-	// 	if (err) return console.error(err);
-	// 	console.log(device.name + " saved to devices collection.");
-	// });
-});
-module.exports = mongoose;
-// } catch (error) {
-	// console.log(error);
-// }
+try {
+	const mongoose = require('mongoose');
+	const config = require('../config/config');
+	mongoose.set('strictQuery', true);
+	mongoose.connect(config.db.uri, {
+		useNewUrlParser: true,
+		useUnifiedTopology: true
+	}, err => {
+		if (err) return console.log("数据库连接失败");
+		console.log("数据库连接成功!");
+		// we're connected! 
+		// const deviceSchema = new mongoose.Schema({
+		// 	name: String,
+		// 	type: String
+		// });
+		// const Device = mongoose.model('Device', deviceSchema);
+		// const device = new Device({
+		// 	name: 'qiuy',
+		// 	type: 'phone'
+		// });
+		// device.save(function (err, device) {
+		// 	if (err) return console.error(err);
+		// 	console.log(device.name + " saved to devices collection.");
+		// });
+	});
+	module.exports = mongoose;
+} catch (error) {
+	console.log(error);
+}

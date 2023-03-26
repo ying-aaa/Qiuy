@@ -59,8 +59,8 @@ app.use(expressJWT({ secret: config.jwtSecretKey }).unless({ path: [/^\/api\//, 
 
 // 问题 *******************************
 // 导入并使用 user 用户模块
-// const user = require("./router/user");
-// app.use("/api", user);
+const user = require("./router/user");
+app.use("/api", user);
 // // 导入并使用 userinfo 用户模块
 // const userInfo = require("./router/userInfo");
 // app.use(userInfo);
@@ -77,7 +77,7 @@ app.use(expressJWT({ secret: config.jwtSecretKey }).unless({ path: [/^\/api\//, 
 // const chat = require("./router/chat");
 // app.use(chat);
 // // 导入并使用 space 动态模块
-// const space = require("./router/space");
+// const space = require("./routr/sepace");
 // app.use(space);
 
 
