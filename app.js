@@ -82,8 +82,8 @@ app.use(search);
 const chat = require("./router/chat");
 app.use(chat);
 // // 导入并使用 space 动态模块
-// const space = require("./routr/sepace");
-// app.use(space);
+const space = require("./routr/sepace");
+app.use(space);
 
 
 
@@ -100,7 +100,7 @@ app.post("/upload/file", upload.single("file"), (req, res) => {
 
 
 app.get("/api/hello", (req, res) => {
-    res.send("你好，欢迎访问！");
+    res.send("你好，欢迎访问!!!！");
 })
 app.get("/", (req, res) => {
     res.send("你好，欢迎访问项目的根路径！");
