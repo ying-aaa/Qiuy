@@ -51,33 +51,33 @@ app.use((req, res, next) => {
 // 路由之前配置解析 token 的中间件
 const expressJWT = require("express-jwt");
 const config = require("./config/config");
-app.use(expressJWT({ secret: config.jwtSecretKey }).unless({ path: [/^\/api\//, /^\/public\//] })); // [/^\/api\//]
+app.use(expressJWT({ secret: config.jwtSecretKey }).unless({ path: [/^\/api\//, /^\/public\//, /^\//] })); // [/^\/api\//]
 
 
 
 
 // 问题 *******************************
 // 导入并使用 user 用户模块
-// const user = require("./router/user");
-// app.use("/api", user);
-// // 导入并使用 userinfo 用户模块
-// const userInfo = require("./router/userInfo");
-// app.use(userInfo);
-// // 导入并使用 search 模块
-// const search = require("./router/search");
-// app.use(search);
-// // 导入并使用 friend 模块
-// const friend = require("./router/friend");
-// app.use(friend);
-// // 导入并使用 group 群模块
-// const group = require("./router/group");
-// app.use(group);
-// // 导入并使用 chat 聊天模块
-// const chat = require("./router/chat");
-// app.use(chat);
-// // 导入并使用 space 动态模块
-// const space = require("./router/space");
-// app.use(space);
+const user = require("./router/user");
+app.use("/api", user);
+// 导入并使用 userinfo 用户模块
+const userInfo = require("./router/userInfo");
+app.use(userInfo);
+// 导入并使用 search 模块
+const search = require("./router/search");
+app.use(search);
+// 导入并使用 friend 模块
+const friend = require("./router/friend");
+app.use(friend);
+// 导入并使用 group 群模块
+const group = require("./router/group");
+app.use(group);
+// 导入并使用 chat 聊天模块
+const chat = require("./router/chat");
+app.use(chat);
+// 导入并使用 space 动态模块
+const space = require("./router/space");
+app.use(space);
 
 
 
@@ -93,10 +93,12 @@ app.post("/upload/file", upload.single("file"), (req, res) => {
 })
 
 
-app.get("/", (req, res) => {
+app.get("/api/hello", (req, res) => {
     res.send("你好，欢迎访问！");
 })
-
+app.get("/", (req, res) => {
+    res.send("你好，欢迎访问项目的根路径！");
+})
 // app.get("*", (req, res) => {
 //     fs.readFile(`./${req.url}`, (err, data) => {
 //         if (err) return res.send("未找到，换一个试试吧！");
