@@ -62,8 +62,8 @@ app.use(expressJWT({ secret: config.jwtSecretKey }).unless({ path: [/^\/api\//, 
 const user = require("./router/user");
 app.use("/api", user);
 // 导入并使用 userinfo 用户模块
-// const userInfo = require("./router/userInfo");
-// app.use(userInfo);
+const userInfo = require("./router/userInfo");
+app.use(userInfo);
 // // 导入并使用 search 模块
 // const search = require("./router/search");
 // app.use(search);
