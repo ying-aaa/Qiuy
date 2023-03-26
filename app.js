@@ -11,9 +11,9 @@ const socket = require("./socket/index.js");
 socket.register(server);
 
 // 打开聊天
-// require("./socket/friend.js");
-// require("./socket/chat.js");
-// require("./socket/group.js");
+require("./socket/friend.js");
+require("./socket/chat.js");
+require("./socket/group.js");
 // 环境变量配置
 // require("./env.variable.js");
 // const { QIUY_URL } = process.env;

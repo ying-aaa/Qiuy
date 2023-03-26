@@ -1,7 +1,8 @@
 const friendsModel = require("../model/friedns");
 const friendMsgModel = require("../model/friend_msg");
 const io = require("./index").feed();
-let onlineUser = []
+// 在线人数列表
+let onlineUser = [];
 // 建立连接
 io.on('connection', (socket) => {
     // 用户上线的接口
@@ -59,10 +60,6 @@ io.on('connection', (socket) => {
             console.log(where, docs);
             if (docs.modifiedCount !== 1) return console.log("清空未读消息数失败(修改的与原来的一样)");
         })
-        //     // friendsModel.findOne(where).exec((err, docs) => {
-        //     //     if (err) return console.log(err);
-        //     //     console.log(where, docs);
-        //     // })
     })
 })
 
