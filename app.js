@@ -4,14 +4,11 @@ const app = express();
 // const { promises: fs } = require('@vercel/node');
 
 
-// // 网页socket配置 *******************************8
-// const server = app.listen(8082);
+// 网页socket配置 *******************************8
+const server = app.listen(8082);
 // 连接webSocket
-// const socket = require("./socket/index.js");
-// socket.register(server);
-
-// 打开 @ 别名  ***************************************
-// require('module-alias/register');
+const socket = require("./socket/index.js");
+socket.register(server);
 
 // 打开聊天
 // require("./socket/friend.js");
