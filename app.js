@@ -65,11 +65,11 @@ app.use("/api", user);
 const userInfo = require("./router/userInfo");
 app.use(userInfo);
 // // 导入并使用 search 模块
-// const search = require("./router/search");
-// app.use(search);
+const search = require("./router/search");
+app.use(search);
 // // 导入并使用 friend 模块
-// const friend = require("./router/friend");
-// app.use(friend);
+const friend = require("./router/friend");
+app.use(friend);
 // // 导入并使用 group 群模块
 // const group = require("./router/group");
 // app.use(group);
