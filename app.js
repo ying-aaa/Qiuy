@@ -68,8 +68,8 @@ app.use(userInfo);
 const search = require("./router/search");
 app.use(search);
 // // 导入并使用 friend 模块
-const friend = require("./router/friend");
-app.use(friend);
+// const friend = require("./router/friend");
+// app.use(friend);
 // // 导入并使用 group 群模块
 // const group = require("./router/group");
 // app.use(group);
